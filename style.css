@@ -54,4 +54,13 @@ button {
     padding: 5px;
     border: 2px solid #ffffff;
     border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #98bcff;
+}
+
+button:active {
+    background-color: #4b8cff;
 }

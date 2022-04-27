@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index.html</title>
+    <title>Meeting Stopwatch</title>
     <link rel="stylesheet" href="style.css">
     <script src="stopwatch.js"></script>
 </head>
@@ -16,6 +16,7 @@
     <div class="statistic">Average Time: <span id="list-mean">-</span></div>
     <div class="statistic">Median Time: <span id="list-median">-</span></div>
     <div class="statistic">Participants: <span id="participants">-</span></div>
+    <noscript>This page requires JavaScript in order to work. Sorry.</noscript>
 </div>
 <script>
     let elemTime = document.getElementById('time');
@@ -61,6 +62,7 @@
         } else if (e.key === 'n') {
             onBtnNext();
         }
+        return false;
     }
 </script>
 </body>
