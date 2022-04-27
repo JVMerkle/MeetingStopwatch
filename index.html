@@ -43,6 +43,7 @@
         elemListMedian.innerText = timeList.median().toString();
         elemParticipants.innerText = timeList.count.toString();
     }
+
     function onBtnPauseResume() {
         if (stopwatch.running) {
             stopwatch.pause();
@@ -56,7 +57,7 @@
     }
 
     // Hotkeys
-    document.body.onkeyup = function(e) {
+    document.body.onkeyup = function (e) {
         if (e.key === ' ' || e.code === 'Space') {
             onBtnPauseResume();
         } else if (e.key === 'n') {

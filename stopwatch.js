@@ -5,8 +5,13 @@ class Timestamp {
         this.#seconds = Math.round(seconds);
     }
 
-    get seconds() { return this.#seconds; }
-    set seconds(v) { this.#seconds = v; }
+    get seconds() {
+        return this.#seconds;
+    }
+
+    set seconds(v) {
+        this.#seconds = v;
+    }
 
     clone() {
         return new Timestamp(this.#seconds)
@@ -55,15 +60,20 @@ class Stopwatch {
         this.start();
     }
 
-    get timestamp() { return this.#timestamp; }
-    get running() { return this.#interval != null; }
+    get timestamp() {
+        return this.#timestamp;
+    }
+
+    get running() {
+        return this.#interval != null;
+    }
 
     reset() {
         this.#timestamp.seconds = 0;
         this.#notify_cb();
     }
 
-    start () {
+    start() {
         this.stop();
         this.reset();
         this.resume();
@@ -106,7 +116,9 @@ class TimeList {
         this.#on_update = on_update;
     }
 
-    get count() { return this.#times.length; }
+    get count() {
+        return this.#times.length;
+    }
 
     push(timestamp) {
         this.#times.push(timestamp);
@@ -149,8 +161,7 @@ class TimeList {
         let str = '';
         for (let i = 0; i < this.#times.length; i++) {
             str += this.#times[i];
-            if (i !== this.#times.length - 1)
-            {
+            if (i !== this.#times.length - 1) {
                 str += ', ';
             }
         }
