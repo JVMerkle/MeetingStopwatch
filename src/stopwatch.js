@@ -73,6 +73,11 @@ class Stopwatch {
 
     reset() {
         this.#timestamp.seconds = 0;
+        // Restart the interval
+        if (this.running) {
+            this.pause();
+            this.resume();
+        }
         this.#notify_cb();
     }
 

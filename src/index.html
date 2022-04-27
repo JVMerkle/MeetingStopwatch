@@ -12,23 +12,21 @@
 <body>
 <div class="container">
     <div class="title">Meeting Stopwatch</div>
-    <div class="stopwatch" id="time">--:--:--</div>
+    <button id='btnStopwatch' class="stopwatch" onclick="onBtnStopwatch()" title="Hotkey: Space">--:--:--</button>
     <button id='btnNext' onclick="onBtnNext()" title="Hotkey: N">Next Participant</button>
-    <button id='btnPauseResume' onclick="onBtnPauseResume()" title="Hotkey: Spacebar">Pause&nbsp;</button>
-    <div class="statistic">Average Time: <span id="list-mean">-</span></div>
-    <div class="statistic">Median Time: <span id="list-median">-</span></div>
+    <div class="statistic">Average Time: <span id="mean">-</span></div>
+    <div class="statistic">Median Time: <span id="median">-</span></div>
     <div class="statistic">Participants: <span id="participants">-</span></div>
     <noscript>This page requires JavaScript in order to work. Sorry.</noscript>
 </div>
 <script>
-    let elemTime = document.getElementById('time');
-    let elemListMean = document.getElementById('list-mean');
-    let elemListMedian = document.getElementById('list-median');
+    let btnStopwatch = document.getElementById('btnStopwatch');
+    let elemMean = document.getElementById('mean');
+    let elemMedian = document.getElementById('median');
     let elemParticipants = document.getElementById('participants');
-    let btnPauseResume = document.getElementById('btnPauseResume');
 
     let stopwatch = new Stopwatch((timestamp) => {
-        elemTime.innerText = timestamp;
+        btnStopwatch.innerText = timestamp;
     });
 
     let timeList = new TimeList();
@@ -41,27 +39,25 @@
 
         timeList.push(stopwatch.timestamp.clone())
         stopwatch.reset();
-        elemListMean.innerText = timeList.mean().toString();
-        elemListMedian.innerText = timeList.median().toString();
+        elemMean.innerText = timeList.mean().toString();
+        elemMedian.innerText = timeList.median().toString();
         elemParticipants.innerText = timeList.count.toString();
     }
 
-    function onBtnPauseResume() {
+    function onBtnStopwatch() {
         if (stopwatch.running) {
             stopwatch.pause();
-            btnPauseResume.innerHTML = 'Resume';
-            elemTime.classList.add('paused');
+            btnStopwatch.classList.add('paused');
         } else {
             stopwatch.resume();
-            btnPauseResume.innerHTML = 'Pause&nbsp;';
-            elemTime.classList.remove('paused');
+            btnStopwatch.classList.remove('paused');
         }
     }
 
     // Hotkeys
     document.body.onkeyup = function (e) {
         if (e.key === ' ' || e.code === 'Space') {
-            onBtnPauseResume();
+            onBtnStopwatch();
         } else if (e.key === 'n') {
             onBtnNext();
         }
