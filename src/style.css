@@ -5,6 +5,28 @@ body {
     background-color: #7aacff;
 }
 
+div {
+    margin-bottom: 0.25em;
+    margin-top: 0.25em;
+}
+
+button {
+    font-weight: bold;
+    background-color: #7aacff;
+    padding: 5px;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #98bcff;
+}
+
+button:active {
+    background-color: #4b8cff;
+}
+
 .container {
     width: 500px;
     position: absolute;
@@ -17,11 +39,6 @@ body {
     box-shadow: 10px 25px 30px rgba(0, 0, 0, 0.3);
     padding: 1em;
     box-sizing: border-box;
-}
-
-div {
-    margin-bottom: 0.25em;
-    margin-top: 0.25em;
 }
 
 .title {
@@ -63,19 +80,15 @@ div {
     padding: 1em;
 }
 
-button {
-    font-weight: bold;
-    background-color: #7aacff;
-    padding: 5px;
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    transition-duration: 0.4s;
+.source-link {
+    text-align: center;
+    font-size: small;
 }
 
-button:hover {
-    background-color: #98bcff;
+.source-link a {
+    text-decoration: none;
 }
 
-button:active {
-    background-color: #4b8cff;
+.source-link a:hover {
+    text-decoration: underline;
 }
