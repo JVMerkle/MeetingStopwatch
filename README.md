@@ -10,3 +10,7 @@ A simple HTML, CSS and JavaScript stopwatch for meetings. Three files only, no n
 |---------|------------------|
 | `Space` | Pause / Resume   |
 | `N`     | Next participant |
+
+## Minify
+
+Run `minify.sh` (requires `go`) to create a minified archive.
