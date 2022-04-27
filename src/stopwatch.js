@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: 2022 Contributors of Meeting Stopwatch */
+/* SPDX-License-Identifier: MIT */
+
 class Timestamp {
     #seconds;
 
