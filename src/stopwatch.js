@@ -1,27 +1,28 @@
 /* SPDX-FileCopyrightText: 2022 Contributors of Meeting Stopwatch */
+
 /* SPDX-License-Identifier: MIT */
 
 class Timestamp {
-    #seconds;
+    seconds;
 
     constructor(seconds = 0) {
-        this.#seconds = Math.round(seconds);
+        this.seconds = Math.round(seconds);
     }
 
     get seconds() {
-        return this.#seconds;
+        return this.seconds;
     }
 
     set seconds(v) {
-        this.#seconds = v;
+        this.seconds = v;
     }
 
     clone() {
-        return new Timestamp(this.#seconds)
+        return new Timestamp(this.seconds)
     }
 
     toString() {
-        let secs = this.#seconds;
+        let secs = this.seconds;
         let minutes = Math.floor(secs / 60);
         let hours = Math.floor(minutes / 60);
 
@@ -49,36 +50,36 @@ class Timestamp {
     }
 
     increment() {
-        this.#seconds++;
+        this.seconds++;
     }
 }
 
 class Stopwatch {
-    #on_tick;
-    #timestamp = new Timestamp();
-    #interval = null;
+    on_tick;
+    timestamp = new Timestamp();
+    interval = null;
 
     constructor(on_tick = null) {
-        this.#on_tick = on_tick
+        this.on_tick = on_tick
         this.start();
     }
 
     get timestamp() {
-        return this.#timestamp;
+        return this.timestamp;
     }
 
     get running() {
-        return this.#interval != null;
+        return this.interval != null;
     }
 
     reset() {
-        this.#timestamp.seconds = 0;
+        this.timestamp.seconds = 0;
         // Restart the interval
         if (this.running) {
             this.pause();
             this.resume();
         }
-        this.#notify_cb();
+        this.notify_cb();
     }
 
     start() {
@@ -93,63 +94,61 @@ class Stopwatch {
 
     pause() {
         if (this.running) {
-            clearInterval(this.#interval);
-            this.#interval = null;
+            clearInterval(this.interval);
+            this.interval = null;
         }
     }
 
     resume() {
         if (!this.running) {
-            this.#interval = setInterval(this.#tick.bind(this), 1000);
+            this.interval = setInterval(() => {
+                this.timestamp.increment();
+                this.notify_cb();
+            }, 1000);
         }
     }
 
-    #tick() {
-        this.#timestamp.increment();
-        this.#notify_cb();
-    }
-
-    #notify_cb() {
-        if (this.#on_tick != null) {
-            this.#on_tick(this.#timestamp);
+    notify_cb() {
+        if (this.on_tick != null) {
+            this.on_tick(this.timestamp);
         }
     }
 }
 
 class TimeList {
-    #times = [];
-    #on_update;
+    times = [];
+    on_update;
 
     constructor(on_update = null) {
-        this.#on_update = on_update;
+        this.on_update = on_update;
     }
 
     get count() {
-        return this.#times.length;
+        return this.times.length;
     }
 
     push(timestamp) {
-        this.#times.push(timestamp);
+        this.times.push(timestamp);
 
-        this.#times = this.#times.sort((a, b) => {
+        this.times = this.times.sort((a, b) => {
             return a.compare(b);
         });
 
-        if (this.#on_update != null) {
-            this.#on_update()
+        if (this.on_update != null) {
+            this.on_update()
         }
     }
 
     mean() {
         let sum = 0;
-        for (const ts of this.#times) {
+        for (const ts of this.times) {
             sum += ts.seconds;
         }
-        return new Timestamp(sum / this.#times.length);
+        return new Timestamp(sum / this.times.length);
     }
 
     median() {
-        const list = this.#times;
+        const list = this.times;
         if (list.length === 0) {
             return NaN;
         }
@@ -167,9 +166,9 @@ class TimeList {
 
     toString() {
         let str = '';
-        for (let i = 0; i < this.#times.length; i++) {
-            str += this.#times[i];
-            if (i !== this.#times.length - 1) {
+        for (let i = 0; i < this.times.length; i++) {
+            str += this.times[i];
+            if (i !== this.times.length - 1) {
                 str += ', ';
             }
         }
